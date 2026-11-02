@@ -275,12 +275,13 @@ main {
   background: var(--ink);
 }
 
-.next:hover {
+.next:hover:not(:disabled) {
   background: #3c2f25;
 }
 
-.next[hidden] {
-  display: none;
+.next:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
 
 .tip {

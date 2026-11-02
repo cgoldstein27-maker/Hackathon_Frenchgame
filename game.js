@@ -477,7 +477,7 @@
     if (phase !== "playing") return;
     phase = "ended";
     answerInput.disabled = true;
-    nextBtn.hidden = false;
+    nextBtn.disabled = false;
     if (!solved) {
       streak = 0;
       renderStats();
@@ -499,8 +499,9 @@
     card.classList.add("is-good");
     showFeedback(`Yes — ${current.en}`, "good");
     answerInput.disabled = true;
-    nextBtn.hidden = false;
+    nextBtn.disabled = false;
     syncCheckButton();
+    nextBtn.focus();
   }
 
   function startRound() {
@@ -517,7 +518,7 @@
     frenchEl.textContent = current.fr;
     answerInput.disabled = false;
     answerInput.value = "";
-    nextBtn.hidden = true;
+    nextBtn.disabled = true;
     showFeedback("", "");
     mountWorld(layoutFor(current.fr), false);
     syncCheckButton();
@@ -605,7 +606,8 @@
       markSolved();
       return;
     }
-    showFeedback("Not quite — try again before it stops.", "bad");
+    showFeedback("Not quite — try again, or hit Next question.", "bad");
+    nextBtn.disabled = false;
     card.classList.remove("shake");
     void card.offsetWidth;
     card.classList.add("shake");
@@ -628,7 +630,7 @@
     card.classList.remove("is-good", "is-bad", "shake");
     showFeedback("", "");
     answerInput.value = "";
-    nextBtn.hidden = true;
+    nextBtn.disabled = true;
     if (!overlay.hidden) {
       phase = "ready";
       kicker.textContent = "French to English";
